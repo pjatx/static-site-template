@@ -7,9 +7,9 @@ https://fei.is/code/zen-middleman-4-setup-with-brunch-and-bower/
 * Also added, Now UI Kit https://www.creative-tim.com/product/now-ui-kit
 
 ## Installation
-# Configure your brunch-config.js file
-# npm install
-# bundle exec middleman server
+* Configure your brunch-config.js file
+* npm install
+* bundle exec middleman server
 
 
 # Middleman - Makes developing websites simple
