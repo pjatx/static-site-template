@@ -1,17 +1,8 @@
-# Activate and configure extensions
-# https://middlemanapp.com/advanced/configuration/#configuring-extensions
 
-activate :autoprefixer do |prefix|
-  prefix.browsers = "last 2 versions"
-end
-
-# Layouts
-# https://middlemanapp.com/basics/layouts/
-
-# Per-page layout changes
 page '/*.xml', layout: false
 page '/*.json', layout: false
 page '/*.txt', layout: false
+page '/sitemap.html', layout: false
 
 # With alternative layout
 # page '/path/to/file.html', layout: 'other_layout'
@@ -46,8 +37,43 @@ page '/*.txt', layout: false
 # end
 
 # Activate external asset pipeline
+configure :development do
+  activate :livereload
+end
+
+ignore "*.sass"
+
 activate :external_pipeline,
   name: :brunch,
   command: build? ? 'npm run prod' : 'npm start',
   source: "./public",
   latency: 1
+
+activate :directory_indexes
+
+set :markdown_engine, :redcarpet
+set :markdown, fenced_code_blocks: true, smartypants: true
+
+set :js_dir, 'assets/javascripts'
+set :css_dir, 'assets/stylesheets'
+set :images_dir, 'assets/images'
+set :fonts_dir, 'assets/fonts'
+
+# Build-specific configuration
+configure :build do
+  activate :asset_hash
+  # Minify CSS on build
+  # activate :minify_css
+
+  # Minify Javascript on build
+  # activate :minify_javascript
+  activate :robots, rules: [
+    { user_agent: '*', allow: ['/']  }
+  ],
+  sitemap: "#{data.site.url}/sitemap.xml"
+end
+
+# activate :deploy do |deploy|
+#   deploy.build_before = true
+#   deploy.deploy_method = :git
+# end
